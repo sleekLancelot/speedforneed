@@ -53,16 +53,19 @@ const Car = () => {
   useControl(vehicleApi, chassisApi)
 
   return (
-    // <primitive
-    //     object={mesh}
-    //     rotation-y={Math.PI}
-    //     // position={[0, -0.09, 0]}
-    // />
     <group ref={vehicle as any} name='vehicle'>
-      <mesh ref={chassisBody as any}>
+      <group ref={chassisBody as any} name="chassisBody">
+        <primitive
+          object={mesh}
+          rotation-y={Math.PI}
+          position={[0, -0.09, 0]}
+        />
+      </group>
+
+      {/* <mesh ref={chassisBody as any}>
         <meshBasicMaterial transparent opacity={0.3} />
         <boxGeometry args={chassisBodyArgs as any} />
-      </mesh>
+      </mesh> */}
 
       <WheelDebug wheelRef={wheels[0]} radius={wheelRadius} />
       <WheelDebug wheelRef={wheels[1]} radius={wheelRadius} />

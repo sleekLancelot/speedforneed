@@ -57,5 +57,19 @@ export const useControl = (vehicleApi: any, chassisApi: any) => {
           vehicleApi.setSteeringValue(0, i);
         }
     }
+
+    // Control handler for when the is in the air
+    if (controls.arrowdown)  chassisApi.applyLocalImpulse([0, -5, 0], [0, 0, +1]);
+    if (controls.arrowup)    chassisApi.applyLocalImpulse([0, -5, 0], [0, 0, -1]);
+    if (controls.arrowleft)  chassisApi.applyLocalImpulse([0, -5, 0], [-0.5, 0, 0]);
+    if (controls.arrowright) chassisApi.applyLocalImpulse([0, -5, 0], [+0.5, 0, 0]);
+
+    // To reset the cars position
+    if (controls.r) {
+      chassisApi.position.set(-1.5, 0.5, 3);
+      chassisApi.velocity.set(0, 0, 0);
+      chassisApi.angularVelocity.set(0, 0, 0);
+      chassisApi.rotation.set(0, 0, 0);
+    }
   }, [vehicleApi, chassisApi, controls])
 }

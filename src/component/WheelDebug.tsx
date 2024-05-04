@@ -7,7 +7,7 @@ interface WheelDebugProp {
 export const WheelDebug = ({
   radius,
   wheelRef,
-  debug= true
+  debug= false
 }: WheelDebugProp) => {
   return debug ? (
     <group ref={wheelRef}>
