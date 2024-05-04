@@ -1,4 +1,4 @@
-import React, { Suspense, useState, } from 'react'
+import React, { Suspense, useEffect, useState, } from 'react'
 import { Environment, PerspectiveCamera, OrbitControls, } from '@react-three/drei'
 
 import { GameLoader } from './gameLoader'
@@ -8,6 +8,20 @@ import { Car } from './Car';
 
 const Scene = (props: any) => {
     const [cameraPosition, setCameraPosition] = useState([-6, 3.9, 6.21]);
+	const [thirdPerson, setThirdPerson] = useState(false);
+	
+	useEffect(() => {
+		function keydownHandler(e: any) {
+		  if (e.key == "k") {
+			// Math.random is necessary to trigger a state change
+			if(thirdPerson) setCameraPosition([-6, 3.9, 6.21 + Math.random() * 0.01]);
+			setThirdPerson(!thirdPerson); 
+		  }
+		}
+	
+		window.addEventListener("keydown", keydownHandler);
+		return () => window.removeEventListener("keydown", keydownHandler);
+	}, [thirdPerson]);
 
   return (
     <Suspense fallback={<GameLoader />}>
@@ -17,11 +31,15 @@ const Scene = (props: any) => {
 		/>
 
 		<PerspectiveCamera makeDefault position={cameraPosition} fov={40} {...props} />
-		<OrbitControls target={[-2.64, -0.71, 0.03]} />
+		{
+			!thirdPerson ?
+			<OrbitControls target={[-2.64, -0.71, 0.03]} />
+			: null
+		}
 
 		<Track />
 		<Ground />
-		<Car />
+		<Car thirdPerson={thirdPerson} />
     </Suspense>
   )
 }
