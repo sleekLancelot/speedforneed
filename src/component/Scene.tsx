@@ -11,17 +11,17 @@ const Scene = (props: any) => {
 
   return (
     <Suspense fallback={<GameLoader />}>
-			<Environment
-				files={process.env.PUBLIC_URL + '/textures/envmap.hdr'}
-				background
-			/>
+		<Environment
+			files={process.env.PUBLIC_URL + '/textures/envmap.hdr'}
+			background
+		/>
 
-			<PerspectiveCamera makeDefault position={cameraPosition} fov={40} {...props} />
-			<OrbitControls target={[-2.64, -0.71, 0.03]} />
+		<PerspectiveCamera makeDefault position={cameraPosition} fov={40} {...props} />
+		<OrbitControls target={[-2.64, -0.71, 0.03]} />
 
-			<Track />
-			<Ground />
-			<Car />
+		<Track />
+		<Ground />
+		<Car />
     </Suspense>
   )
 }
